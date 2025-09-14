@@ -4,11 +4,13 @@ import { OrbitControls, Preload, useGLTF } from "@react-three/drei";
 import CanvasLoader from "../Loader";
 
 const Computers = ({ isMobile }) => {
-  try {
-    const computer = useGLTF("./desktop_pc/scene.gltf");
-    
-    // Validate the geometry before rendering
+  const [hasError, setHasError] = useState(false);
+  const computer = useGLTF("./desktop_pc/scene.gltf");
+
+  useEffect(() => {
     if (computer.scene) {
+      let foundError = false;
+      
       computer.scene.traverse((child) => {
         if (child.isMesh && child.geometry) {
           // Check for NaN values in position attribute
@@ -16,46 +18,30 @@ const Computers = ({ isMobile }) => {
           if (position && position.array) {
             for (let i = 0; i < position.array.length; i++) {
               if (isNaN(position.array[i])) {
-                console.warn("NaN detected in computer geometry, using fallback");
-                return (
-                  <mesh>
-                    <boxGeometry args={[1, 1, 1]} />
-                    <meshStandardMaterial color="#915EFF" />
-                  </mesh>
-                );
+                console.warn("NaN detected in computer geometry");
+                foundError = true;
+                break;
               }
             }
           }
+          
           // Ensure geometry has valid bounding sphere
-          if (!child.geometry.boundingSphere) {
-            child.geometry.computeBoundingSphere();
+          try {
+            if (!child.geometry.boundingSphere) {
+              child.geometry.computeBoundingSphere();
+            }
+          } catch (error) {
+            console.warn("Error computing bounding sphere:", error);
+            foundError = true;
           }
         }
       });
+      
+      setHasError(foundError);
     }
+  }, [computer.scene]);
 
-    return (
-      <mesh>
-        <hemisphereLight intensity={0.15} groundColor='black' />
-        <spotLight
-          position={[-20, 50, 10]}
-          angle={0.12}
-          penumbra={1}
-          intensity={1}
-          castShadow
-          shadow-mapSize={1024}
-        />
-        <pointLight intensity={1} />
-        <primitive
-          object={computer.scene}
-          scale={isMobile ? 0.7 : 0.75}
-          position={isMobile ? [0, -3, -2.2] : [0, -3.25, -1.5]}
-          rotation={[-0.01, -0.2, -0.1]}
-        />
-      </mesh>
-    );
-  } catch (error) {
-    console.error("Error loading Computer model:", error);
+  if (hasError) {
     // Return a fallback 3D object
     return (
       <mesh>
@@ -80,6 +66,27 @@ const Computers = ({ isMobile }) => {
       </mesh>
     );
   }
+
+  return (
+    <mesh>
+      <hemisphereLight intensity={0.15} groundColor='black' />
+      <spotLight
+        position={[-20, 50, 10]}
+        angle={0.12}
+        penumbra={1}
+        intensity={1}
+        castShadow
+        shadow-mapSize={1024}
+      />
+      <pointLight intensity={1} />
+      <primitive
+        object={computer.scene}
+        scale={isMobile ? 0.7 : 0.75}
+        position={isMobile ? [0, -3, -2.2] : [0, -3.25, -1.5]}
+        rotation={[-0.01, -0.2, -0.1]}
+      />
+    </mesh>
+  );
 };
 
 const ComputersCanvas = () => {

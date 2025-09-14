@@ -1,15 +1,17 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Preload, useGLTF } from "@react-three/drei";
 
 import CanvasLoader from "../Loader";
 
 const Earth = () => {
-  try {
-    const earth = useGLTF("./planet/scene.gltf");
-    
-    // Validate the geometry before rendering
+  const [hasError, setHasError] = useState(false);
+  const earth = useGLTF("./planet/scene.gltf");
+
+  useEffect(() => {
     if (earth.scene) {
+      let foundError = false;
+      
       earth.scene.traverse((child) => {
         if (child.isMesh && child.geometry) {
           // Check for NaN values in position attribute
@@ -17,26 +19,36 @@ const Earth = () => {
           if (position && position.array) {
             for (let i = 0; i < position.array.length; i++) {
               if (isNaN(position.array[i])) {
-                console.warn("NaN detected in geometry, skipping model");
-                return null;
+                console.warn("NaN detected in earth geometry");
+                foundError = true;
+                break;
               }
             }
           }
+          
           // Ensure geometry has valid bounding sphere
-          if (!child.geometry.boundingSphere) {
-            child.geometry.computeBoundingSphere();
+          try {
+            if (!child.geometry.boundingSphere) {
+              child.geometry.computeBoundingSphere();
+            }
+          } catch (error) {
+            console.warn("Error computing bounding sphere:", error);
+            foundError = true;
           }
         }
       });
+      
+      setHasError(foundError);
     }
+  }, [earth.scene]);
 
-    return (
-      <primitive object={earth.scene} scale={2.5} position-y={0} rotation-y={0} />
-    );
-  } catch (error) {
-    console.error("Error loading Earth model:", error);
+  if (hasError) {
     return null;
   }
+
+  return (
+    <primitive object={earth.scene} scale={2.5} position-y={0} rotation-y={0} />
+  );
 };
 
 const EarthCanvas = () => {
