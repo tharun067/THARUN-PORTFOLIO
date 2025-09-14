@@ -119,6 +119,8 @@ const technologies = [
 const experiences = [
   {
     title: "React.js Developer",
+    company_name: "Freelance",
+    icon: web,
     iconBg: "#383E56",
     date: "March 2024 - April 2025",
     points: [
@@ -129,6 +131,8 @@ const experiences = [
   },
   {
     title: "Full stack Developer",
+    company_name: "Personal Projects",
+    icon: backend,
     iconBg: "#E6DEDD",
     date: "Jan 2023 - Present",
     points: [
@@ -136,6 +140,19 @@ const experiences = [
       "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
       "Implementing responsive design and ensuring cross-browser compatibility.",
       "Participating in code reviews and providing constructive feedback to other developers.",
+    ],
+  },
+  {
+    title: "AI/ML Enthusiast",
+    company_name: "Self-Learning",
+    icon: creator,
+    iconBg: "#383E56",
+    date: "2022 - Present",
+    points: [
+      "Exploring machine learning algorithms and their practical applications.",
+      "Building predictive models for healthcare and agriculture domains.",
+      "Implementing computer vision solutions for real-world problems.",
+      "Staying updated with latest AI/ML trends and technologies.",
     ],
   },
 ];

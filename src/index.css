@@ -13,6 +13,24 @@
   color-scheme: dark;
 }
 
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #151030;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #915EFF;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #7c3aed;
+}
+
 .hash-span {
   margin-top: -100px;
   padding-bottom: 100px;

@@ -4,26 +4,7 @@ import { OrbitControls, Preload, useGLTF } from "@react-three/drei";
 import CanvasLoader from "../Loader";
 
 const Computers = ({ isMobile }) => {
-  const { scene } = useGLTF("./desktop_pc/scene.gltf");
-
-  useEffect(() => {
-    if (!scene || !scene.traverse) return;
-
-    // Check for NaNs in geometry
-    scene.traverse((child) => {
-      if (child.isMesh && child.geometry?.attributes?.position) {
-        const position = child.geometry.attributes.position;
-        for (let i = 0; i < position.count; i++) {
-          const x = position.getX(i);
-          const y = position.getY(i);
-          const z = position.getZ(i);
-          if (isNaN(x) || isNaN(y) || isNaN(z)) {
-            console.warn(`NaN value detected at index ${i}`, { x, y, z });
-          }
-        }
-      }
-    });
-  }, [scene]);
+  const computer = useGLTF("./desktop_pc/scene.gltf");
 
   return (
     <mesh>
@@ -34,12 +15,11 @@ const Computers = ({ isMobile }) => {
         penumbra={1}
         intensity={1}
         castShadow
-        shadow-mapSize-width={1024}
-        shadow-mapSize-height={1024}
+        shadow-mapSize={1024}
       />
       <pointLight intensity={1} />
       <primitive
-        object={scene}
+        object={computer.scene}
         scale={isMobile ? 0.7 : 0.75}
         position={isMobile ? [0, -3, -2.2] : [0, -3.25, -1.5]}
         rotation={[-0.01, -0.2, -0.1]}
