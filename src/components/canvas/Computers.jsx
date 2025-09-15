@@ -1,74 +1,24 @@
-import React, { Suspense, useEffect, useState } from "react";
-import { Canvas } from "@react-three/fiber";
-import { OrbitControls, Preload, useGLTF } from "@react-three/drei";
+import React, { Suspense, useRef } from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { OrbitControls, Preload } from "@react-three/drei";
 import CanvasLoader from "../Loader";
 
-const Computers = ({ isMobile }) => {
-  const [isValidModel, setIsValidModel] = useState(false);
-  const computer = useGLTF("./desktop_pc/scene.gltf");
+const AnimatedCube = ({ isMobile }) => {
+  const meshRef = useRef();
+  const groupRef = useRef();
 
-  useEffect(() => {
-    if (computer.scene) {
-      let isValid = true;
-      
-      computer.scene.traverse((child) => {
-        if (child.isMesh && child.geometry) {
-          // Check for NaN values in position attribute
-          const position = child.geometry.attributes.position;
-          if (position && position.array) {
-            for (let i = 0; i < position.array.length; i++) {
-              if (isNaN(position.array[i])) {
-                console.warn("NaN detected in computer geometry");
-                isValid = false;
-                break;
-              }
-            }
-          }
-          
-          // Ensure geometry has valid bounding sphere
-          try {
-            if (!child.geometry.boundingSphere) {
-              child.geometry.computeBoundingSphere();
-            }
-          } catch (error) {
-            console.warn("Error computing bounding sphere:", error);
-            isValid = false;
-          }
-        }
-      });
-      
-      setIsValidModel(isValid);
+  useFrame((state, delta) => {
+    if (meshRef.current) {
+      meshRef.current.rotation.x += delta * 0.5;
+      meshRef.current.rotation.y += delta * 0.3;
     }
-  }, [computer.scene]);
-
-  if (!isValidModel) {
-    // Return a fallback 3D object
-    return (
-      <mesh>
-        <hemisphereLight intensity={0.15} groundColor='black' />
-        <spotLight
-          position={[-20, 50, 10]}
-          angle={0.12}
-          penumbra={1}
-          intensity={1}
-          castShadow
-          shadow-mapSize={1024}
-        />
-        <pointLight intensity={1} />
-        <mesh
-          scale={isMobile ? 0.7 : 0.75}
-          position={isMobile ? [0, -3, -2.2] : [0, -3.25, -1.5]}
-          rotation={[-0.01, -0.2, -0.1]}
-        >
-          <boxGeometry args={[2, 1.5, 1]} />
-          <meshStandardMaterial color="#915EFF" />
-        </mesh>
-      </mesh>
-    );
-  }
+    if (groupRef.current) {
+      groupRef.current.rotation.y += delta * 0.1;
+    }
+  });
 
   return (
-    <mesh>
+    <group ref={groupRef}>
       <hemisphereLight intensity={0.15} groundColor='black' />
       <spotLight
         position={[-20, 50, 10]}
@@ -79,20 +29,66 @@ const Computers = ({ isMobile }) => {
         shadow-mapSize={1024}
       />
       <pointLight intensity={1} />
-      <primitive
-        object={computer.scene}
-        scale={isMobile ? 0.7 : 0.75}
-        position={isMobile ? [0, -3, -2.2] : [0, -3.25, -1.5]}
-        rotation={[-0.01, -0.2, -0.1]}
-      />
-    </mesh>
+      
+      {/* Main animated cube */}
+      <mesh
+        ref={meshRef}
+        scale={isMobile ? 1.5 : 2}
+        position={isMobile ? [0, -2, 0] : [0, -2.5, 0]}
+        castShadow
+        receiveShadow
+      >
+        <boxGeometry args={[2, 1.5, 1]} />
+        <meshStandardMaterial 
+          color="#915EFF" 
+          metalness={0.8}
+          roughness={0.2}
+          emissive="#915EFF"
+          emissiveIntensity={0.1}
+        />
+      </mesh>
+
+      {/* Floating particles */}
+      {[...Array(8)].map((_, i) => (
+        <mesh
+          key={i}
+          position={[
+            Math.sin(i * 0.8) * 4,
+            Math.cos(i * 0.6) * 2 - 1,
+            Math.sin(i * 0.4) * 3
+          ]}
+          scale={0.2}
+        >
+          <sphereGeometry args={[1, 8, 8]} />
+          <meshStandardMaterial 
+            color="#00cea8" 
+            emissive="#00cea8"
+            emissiveIntensity={0.3}
+          />
+        </mesh>
+      ))}
+
+      {/* Wireframe outline */}
+      <mesh
+        scale={isMobile ? 1.6 : 2.1}
+        position={isMobile ? [0, -2, 0] : [0, -2.5, 0]}
+      >
+        <boxGeometry args={[2, 1.5, 1]} />
+        <meshBasicMaterial 
+          color="#ffffff" 
+          wireframe={true}
+          opacity={0.3}
+          transparent={true}
+        />
+      </mesh>
+    </group>
   );
 };
 
 const ComputersCanvas = () => {
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = React.useState(false);
 
-  useEffect(() => {
+  React.useEffect(() => {
     const mediaQuery = window.matchMedia("(max-width: 500px)");
     setIsMobile(mediaQuery.matches);
 
@@ -104,16 +100,21 @@ const ComputersCanvas = () => {
 
   return (
     <Canvas
-      frameloop='demand'
+      frameloop='always'
       shadows
       dpr={[1, 2]}
       camera={{ position: [20, 3, 5], fov: 25 }}
       gl={{ preserveDrawingBuffer: true }}
-      onError={(error) => console.error("Canvas error:", error)}
     >
       <Suspense fallback={<CanvasLoader />}>
-        <OrbitControls enableZoom={false} maxPolarAngle={Math.PI / 2} minPolarAngle={Math.PI / 2} />
-        <Computers isMobile={isMobile} />
+        <OrbitControls 
+          enableZoom={false} 
+          maxPolarAngle={Math.PI / 2} 
+          minPolarAngle={Math.PI / 2}
+          autoRotate={true}
+          autoRotateSpeed={0.5}
+        />
+        <AnimatedCube isMobile={isMobile} />
       </Suspense>
       <Preload all />
     </Canvas>
