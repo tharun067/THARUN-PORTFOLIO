@@ -4,12 +4,12 @@ import { OrbitControls, Preload, useGLTF } from "@react-three/drei";
 import CanvasLoader from "../Loader";
 
 const Computers = ({ isMobile }) => {
-  const [hasError, setHasError] = useState(false);
+  const [isValidModel, setIsValidModel] = useState(false);
   const computer = useGLTF("./desktop_pc/scene.gltf");
 
   useEffect(() => {
     if (computer.scene) {
-      let foundError = false;
+      let isValid = true;
       
       computer.scene.traverse((child) => {
         if (child.isMesh && child.geometry) {
@@ -19,7 +19,7 @@ const Computers = ({ isMobile }) => {
             for (let i = 0; i < position.array.length; i++) {
               if (isNaN(position.array[i])) {
                 console.warn("NaN detected in computer geometry");
-                foundError = true;
+                isValid = false;
                 break;
               }
             }
@@ -32,16 +32,16 @@ const Computers = ({ isMobile }) => {
             }
           } catch (error) {
             console.warn("Error computing bounding sphere:", error);
-            foundError = true;
+            isValid = false;
           }
         }
       });
       
-      setHasError(foundError);
+      setIsValidModel(isValid);
     }
   }, [computer.scene]);
 
-  if (hasError) {
+  if (!isValidModel) {
     // Return a fallback 3D object
     return (
       <mesh>

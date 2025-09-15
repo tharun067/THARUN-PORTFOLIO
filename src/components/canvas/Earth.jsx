@@ -5,12 +5,12 @@ import { OrbitControls, Preload, useGLTF } from "@react-three/drei";
 import CanvasLoader from "../Loader";
 
 const Earth = () => {
-  const [hasError, setHasError] = useState(false);
+  const [isValidModel, setIsValidModel] = useState(false);
   const earth = useGLTF("./planet/scene.gltf");
 
   useEffect(() => {
     if (earth.scene) {
-      let foundError = false;
+      let isValid = true;
       
       earth.scene.traverse((child) => {
         if (child.isMesh && child.geometry) {
@@ -20,7 +20,7 @@ const Earth = () => {
             for (let i = 0; i < position.array.length; i++) {
               if (isNaN(position.array[i])) {
                 console.warn("NaN detected in earth geometry");
-                foundError = true;
+                isValid = false;
                 break;
               }
             }
@@ -33,16 +33,16 @@ const Earth = () => {
             }
           } catch (error) {
             console.warn("Error computing bounding sphere:", error);
-            foundError = true;
+            isValid = false;
           }
         }
       });
       
-      setHasError(foundError);
+      setIsValidModel(isValid);
     }
   }, [earth.scene]);
 
-  if (hasError) {
+  if (!isValidModel) {
     return null;
   }
 
