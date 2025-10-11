@@ -24,8 +24,8 @@ const Hero = () => {
         </div>
       </div>
 
-      <div className='absolute inset-0 flex justify-center items-center'>
-        <div className='relative mt-20'>
+      <div className='absolute inset-0 flex justify-center items-center z-10 pointer-events-none'>
+        <div className='relative mt-20 pointer-events-auto'>
           <motion.div
             animate={{
               y: [0, -20, 0],
@@ -35,7 +35,7 @@ const Hero = () => {
               repeat: Infinity,
               repeatType: "loop",
             }}
-            className='relative'
+            className='relative z-20'
           >
             <img
               src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=400"
