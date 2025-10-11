@@ -49,7 +49,7 @@ const AnimatedCube = ({ isMobile }) => {
       </mesh>
 
       {/* Floating particles */}
-      {[...Array(8)].map((_, i) => (
+      {[...Array(6)].map((_, i) => (
         <mesh
           key={i}
           position={[
@@ -59,9 +59,9 @@ const AnimatedCube = ({ isMobile }) => {
           ]}
           scale={0.2}
         >
-          <sphereGeometry args={[1, 8, 8]} />
-          <meshStandardMaterial 
-            color="#00cea8" 
+          <sphereGeometry args={[1, 6, 6]} />
+          <meshStandardMaterial
+            color="#00cea8"
             emissive="#00cea8"
             emissiveIntensity={0.3}
           />

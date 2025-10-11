@@ -1,70 +1,44 @@
-import { motion } from "framer-motion";
+import React, { Suspense } from "react";
+import { Canvas } from "@react-three/fiber";
+import { OrbitControls, Preload, useGLTF } from "@react-three/drei";
 
-import { styles } from "../styles";
+import CanvasLoader from "../Loader";
 
-const Hero = () => {
+const Earth = () => {
+  const earth = useGLTF("./planet/scene.gltf");
+
   return (
-    <section className={`relative w-full h-screen mx-auto`}>
-      <div
-        className={`absolute inset-0 top-[120px]  max-w-7xl mx-auto ${styles.paddingX} flex flex-row items-start gap-5`}
-      >
-        <div className='flex flex-col justify-center items-center mt-5'>
-          <div className='w-5 h-5 rounded-full bg-[#915EFF]' />
-          <div className='w-1 sm:h-80 h-40 violet-gradient' />
-        </div>
-
-        <div>
-          <h1 className={`${styles.heroHeadText} text-white`}>
-            Hi, I'm <span className='text-[#915EFF]'>Tharun</span>
-          </h1>
-          <p className={`${styles.heroSubText} mt-2 text-white-100`}>
-            I develop, user <br className='sm:block hidden' />
-            interfaces, web applications and backend logics
-          </p>
-        </div>
-      </div>
-
-      <div className='absolute inset-0 flex justify-center items-center'>
-        <div className='relative mt-20'>
-          <motion.div
-            animate={{
-              y: [0, -20, 0],
-            }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              repeatType: "loop",
-            }}
-            className='relative'
-          >
-            <img
-              src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=400"
-              alt="Tharun Profile"
-              className='w-80 h-80 sm:w-96 sm:h-96 rounded-full object-cover border-4 border-[#915EFF] shadow-2xl'
-            />
-
-      <div className='absolute xs:bottom-10 bottom-32 w-full flex justify-center items-center'>
-        <a href='#about'>
-          <div className='w-[35px] h-[64px] rounded-3xl border-4 border-secondary flex justify-center items-start p-2'>
-            <motion.div
-              animate={{
-                y: [0, 24, 0],
-              }}
-              transition={{
-                duration: 1.5,
-                repeat: Infinity,
-                repeatType: "loop",
-              }}
-              className='w-3 h-3 rounded-full bg-secondary mb-1'
-            />
-          </div>
-        </a>
-      </div>
-    </section>
+    <primitive object={earth.scene} scale={2.5} position-y={0} rotation-y={0} />
   );
 };
 
-export default Hero;
+const EarthCanvas = () => {
+  return (
+    <Canvas
+      shadows
+      frameloop='demand'
+      dpr={[1, 2]}
+      gl={{ preserveDrawingBuffer: true }}
+      camera={{
+        fov: 45,
+        near: 0.1,
+        far: 200,
+        position: [-4, 3, 6],
+      }}
+    >
+      <Suspense fallback={<CanvasLoader />}>
+        <OrbitControls
+          autoRotate
+          enableZoom={false}
+          maxPolarAngle={Math.PI / 2}
+          minPolarAngle={Math.PI / 2}
+        />
+        <Earth />
 
-  )
-}
+        <Preload all />
+      </Suspense>
+    </Canvas>
+  );
+};
+
+export default EarthCanvas;
