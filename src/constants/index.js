@@ -8,19 +8,30 @@ import {
   html,
   css,
   reactjs,
-  redux,
   tailwind,
   nodejs,
   mongodb,
   git,
   python,
+  BeautifulSoup,
+  chomra,
+  deep_learning,
+  genai,
+  langchain,
+  langgraph,
+  matplotlib,
+  numpy,
+  nlp,
+  pandas,
+  scikit_learn,
+  streamlit,
+  tensorflow,
   docker,
   fastapi,
   spend,
   heart,
   agri,
   career,
-  threejs,
 } from "../assets";
 
 export const navLinks = [
@@ -44,7 +55,7 @@ const services = [
     icon: web,
   },
   {
-    title: "React Native Developer",
+    title: "Python Developer",
     icon: mobile,
   },
   {
@@ -52,7 +63,7 @@ const services = [
     icon: backend,
   },
   {
-    title: "AI Agents Developer",
+    title: "AI Engineer",
     icon: creator,
   },
 ];
@@ -79,8 +90,8 @@ const technologies = [
     icon: reactjs,
   },
   {
-    name: "Redux Toolkit",
-    icon: redux,
+    name: "BeautifulSoup",
+    icon: BeautifulSoup,
   },
   {
     name: "Tailwind CSS",
@@ -95,8 +106,8 @@ const technologies = [
     icon: mongodb,
   },
   {
-    name: "Three JS",
-    icon: threejs,
+    name: "ChromaDB",
+    icon: chomra,
   },
   {
     name: "git",
@@ -114,6 +125,35 @@ const technologies = [
     name: "docker",
     icon: docker,
   },
+  {
+    name: "Tensorflow",
+    icon: tensorflow,
+  },
+  {
+    name: "Numpy",
+    icon: numpy,
+  },
+  {
+    name: "Pandas",
+    icon: pandas,
+  },
+  {
+    name: "Matplotlib",
+    icon: matplotlib,
+  },
+  {
+    name: "Scikit-Learn",
+    icon: scikit_learn,
+  },
+  {
+    name: "Streamlit",
+    icon: streamlit,
+  },
+  {name: "NLP", icon: nlp,},
+  {name: "Deep Learning", icon: deep_learning,},
+  {name: "GenAI", icon: genai,},
+  {name: "LangChain", icon: langchain,},
+  {name: "LangGraph", icon: langgraph,},
 ];
 
 const experiences = [

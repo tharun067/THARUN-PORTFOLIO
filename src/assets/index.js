@@ -17,10 +17,21 @@ import javascript from "./tech/javascript.png";
 import mongodb from "./tech/mongodb.png";
 import nodejs from "./tech/nodejs.png";
 import reactjs from "./tech/reactjs.png";
-import redux from "./tech/redux.png";
 import tailwind from "./tech/tailwind.png";
 import typescript from "./tech/typescript.png";
-import threejs from "./tech/threejs.svg";
+import BeautifulSoup from "./tech/BeautifulSoup.png";
+import chomra from "./tech/chroma.png";
+import deep_learning from "./tech/deep_learning.png";
+import genai from "./tech/genai.png";
+import langchain from "./tech/langchain.png";
+import langgraph from "./tech/langgraph.png";
+import matplotlib from "./tech/matplotlib.png";
+import numpy from "./tech/numpy.png";
+import nlp from "./tech/nlp.png";
+import pandas from "./tech/pandas.png";
+import scikit_learn from "./tech/scikit_learn.png";
+import streamlit from "./tech/streamlit.png";
+import tensorflow from "./tech/tensorflow.png";
 
 import meta from "./company/meta.png";
 import shopify from "./company/shopify.png";
@@ -51,10 +62,8 @@ export {
   mongodb,
   nodejs,
   reactjs,
-  redux,
   tailwind,
   typescript,
-  threejs,
   meta,
   shopify,
   starbucks,
@@ -62,5 +71,18 @@ export {
   career,
   spend,
   agri,
-  heart
+  heart,
+  BeautifulSoup,
+  chomra,
+  deep_learning,
+  genai,
+  langchain,
+  langgraph,
+  matplotlib,
+  numpy,
+  nlp,
+  pandas,
+  scikit_learn,
+  streamlit,
+  tensorflow
 };

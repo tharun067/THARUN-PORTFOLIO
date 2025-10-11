@@ -10,36 +10,13 @@ import { slideIn } from "../utils/motion";
 const Contact = () => {
   const downloadResume = () => {
     // Create a simple resume download
-    const resumeContent = `
-THARUN CHAVA
-Full Stack Developer
+    const resumeContent = "tharun_chava_resume.pdf";
 
-Email: tharunchava067@gmail.com
-LinkedIn: linkedin.com/in/tharun-chava-77a57930a
-GitHub: github.com/tharun067
-
-SKILLS:
-- Frontend: React.js, JavaScript, TypeScript, HTML/CSS, Tailwind CSS
-- Backend: Node.js, Python, FastAPI, MongoDB
-- Tools: Git, Docker, Three.js
-
-EXPERIENCE:
-- React.js Developer (March 2024 - Present)
-- Full Stack Developer (Jan 2023 - Present)
-- AI/ML Enthusiast (2022 - Present)
-
-PROJECTS:
-- Career Navigator - Career path finder
-- AORTA ORACLE - Heart disease prediction
-- Agrimitra - Plant disease detection
-- SpendWise - Personal finance tracker
-    `;
-    
-    const blob = new Blob([resumeContent], { type: 'text/plain' });
+    const blob = new Blob([resumeContent], { type: 'application/pdf' });
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'Tharun_Chava_Resume.txt';
+    a.download = 'Tharun_Chava_Resume.pdf';
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);

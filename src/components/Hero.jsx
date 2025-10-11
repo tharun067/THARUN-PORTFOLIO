@@ -26,7 +26,7 @@ const Hero = () => {
               }}
             >
               <img
-                src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=400"
+                src="/IMG-20250802-WA0064.jpg"
                 alt="Tharun Profile"
                 className='w-32 h-32 sm:w-40 sm:h-40 rounded-full object-cover border-4 border-[#915EFF] shadow-2xl'
               />
@@ -56,7 +56,7 @@ const Hero = () => {
             }}
           >
             <img
-              src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=400"
+              src="/IMG-20250802-WA0064.jpg"
               alt="Tharun Profile"
               className='w-64 h-64 xl:w-80 xl:h-80 rounded-full object-cover border-4 border-[#915EFF] shadow-2xl'
             />
