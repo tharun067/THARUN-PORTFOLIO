@@ -6,14 +6,35 @@ const Hero = () => {
   return (
     <section className={`relative w-full h-screen mx-auto`}>
       <div
-        className={`absolute inset-0 top-[120px]  max-w-7xl mx-auto ${styles.paddingX} flex flex-row items-start gap-5`}
+        className={`absolute inset-0 top-[120px] max-w-7xl mx-auto ${styles.paddingX} flex flex-col lg:flex-row items-center lg:items-start gap-8 lg:gap-12`}
       >
-        <div className='flex flex-col justify-center items-center mt-5'>
-          <div className='w-5 h-5 rounded-full bg-[#915EFF]' />
-          <div className='w-1 sm:h-80 h-40 violet-gradient' />
+        <div className='flex flex-row lg:flex-col items-center lg:items-start gap-5'>
+          <div className='flex flex-col justify-center items-center mt-5'>
+            <div className='w-5 h-5 rounded-full bg-[#915EFF]' />
+            <div className='w-1 sm:h-80 h-40 violet-gradient' />
+          </div>
+
+          <div className='lg:hidden'>
+            <motion.div
+              animate={{
+                y: [0, -20, 0],
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                repeatType: "loop",
+              }}
+            >
+              <img
+                src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=400"
+                alt="Tharun Profile"
+                className='w-32 h-32 sm:w-40 sm:h-40 rounded-full object-cover border-4 border-[#915EFF] shadow-2xl'
+              />
+            </motion.div>
+          </div>
         </div>
 
-        <div>
+        <div className='flex-1 text-center lg:text-left'>
           <h1 className={`${styles.heroHeadText} text-white`}>
             Hi, I'm <span className='text-[#915EFF]'>Tharun</span>
           </h1>
@@ -22,10 +43,8 @@ const Hero = () => {
             interfaces, web applications and backend logics
           </p>
         </div>
-      </div>
 
-      <div className='absolute inset-0 flex justify-center items-center z-10 pointer-events-none'>
-        <div className='relative mt-20 pointer-events-auto'>
+        <div className='hidden lg:block'>
           <motion.div
             animate={{
               y: [0, -20, 0],
@@ -35,12 +54,11 @@ const Hero = () => {
               repeat: Infinity,
               repeatType: "loop",
             }}
-            className='relative z-20'
           >
             <img
               src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=400"
               alt="Tharun Profile"
-              className='w-80 h-80 sm:w-96 sm:h-96 rounded-full object-cover border-4 border-[#915EFF] shadow-2xl'
+              className='w-64 h-64 xl:w-80 xl:h-80 rounded-full object-cover border-4 border-[#915EFF] shadow-2xl'
             />
           </motion.div>
         </div>
