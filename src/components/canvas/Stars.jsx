@@ -1,4 +1,4 @@
-import { useState, useRef, Suspense } from "react";
+import { useState, useRef, Suspense, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Points, PointMaterial, Preload } from "@react-three/drei";
 import * as random from "maath/random/dist/maath-random.esm";
@@ -30,9 +30,26 @@ const Stars = (props) => {
 };
 
 const StarsCanvas = () => {
+  const glRef = useRef(null);
+
+  useEffect(() => {
+    return () => {
+      const gl = glRef.current;
+      try {
+        if (gl && gl.getContext) {
+          const ext = gl.getContext().getExtension && gl.getContext().getExtension('WEBGL_lose_context');
+          if (ext && ext.loseContext) ext.loseContext();
+          if (gl.dispose) gl.dispose();
+        }
+      } catch (e) {
+        // ignore
+      }
+    };
+  }, []);
+
   return (
     <div className='w-full h-auto absolute inset-0 z-[-1]'>
-      <Canvas camera={{ position: [0, 0, 1] }} dpr={[1, 1.5]} frameloop='always'>
+      <Canvas camera={{ position: [0, 0, 1] }} dpr={[1, 1.5]} frameloop='demand' onCreated={({ gl }) => { glRef.current = gl; }}>
         <Suspense fallback={null}>
           <Stars />
         </Suspense>

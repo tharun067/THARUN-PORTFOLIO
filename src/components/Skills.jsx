@@ -6,36 +6,53 @@ import { fadeIn, textVariant } from "../utils/motion";
 
 const skillCategories = [
   {
-    title: "Frontend Development",
+    title: "Languages & Libraries",
     skills: [
-      { name: "React.js", level: 90 },
+      { name: "Python", level: 95 },
+      { name: "Java", level: 80 },
       { name: "JavaScript", level: 85 },
       { name: "TypeScript", level: 80 },
-      { name: "HTML/CSS", level: 95 },
-      { name: "Tailwind CSS", level: 88 },
-      { name: "Three.js", level: 75 }
+      { name: "Pandas", level: 90 },
+      { name: "NumPy", level: 90 },
+      { name: "TensorFlow", level: 85 },
+      { name: "Keras", level: 85 }
     ]
   },
   {
-    title: "Backend Development",
+    title: "Web & Backend",
     skills: [
+      { name: "React.js", level: 90 },
+      { name: "Next.js", level: 80 },
       { name: "Node.js", level: 85 },
-      { name: "Python", level: 90 },
       { name: "FastAPI", level: 82 },
-      { name: "MongoDB", level: 78 },
-      { name: "REST APIs", level: 88 },
-      { name: "GraphQL", level: 70 }
+      { name: "Streamlit", level: 75 },
+      { name: "HTML/CSS", level: 95 },
+      { name: "Tailwind CSS", level: 88 }
     ]
   },
   {
-    title: "Tools & Technologies",
+    title: "AI / ML & LLMs",
+    skills: [
+      { name: "Deep Learning", level: 90 },
+      { name: "NLP", level: 88 },
+      { name: "Reinforcement Learning", level: 75 },
+      { name: "Generative AI", level: 85 },
+      { name: "LangChain", level: 80 },
+      { name: "LLaMA", level: 75 },
+      { name: "OpenAI / Gemini", level: 80 }
+    ]
+  },
+  {
+    title: "Tools & Databases",
     skills: [
       { name: "Git", level: 90 },
+      { name: "GitHub", level: 90 },
       { name: "Docker", level: 75 },
-      { name: "AWS", level: 70 },
-      { name: "Redux", level: 80 },
-      { name: "Webpack", level: 72 },
-      { name: "Jest", level: 75 }
+      { name: "MySQL", level: 78 },
+      { name: "MongoDB", level: 78 },
+      { name: "Firebase", level: 72 },
+      { name: "Selenium", level: 70 },
+      { name: "BeautifulSoup", level: 70 }
     ]
   }
 ];
