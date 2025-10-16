@@ -32,6 +32,7 @@ import {
   heart,
   agri,
   career,
+  GitMind,
 } from "../assets";
 
 export const navLinks = [
@@ -297,6 +298,27 @@ const projects = [
       },
     ],
     image: spend,
+    source_code_link: "https://github.com/tharun067",
+  },
+  {
+    name: "GitMind AI Assistant",
+    description:
+      "An AI Agent to explain the Git Repo to Freshers with the Groq and RAG..",
+    tags: [
+      {
+        name: "Streamlit",
+        color: "blue-text-gradient",
+      },
+      {
+        name: "Groq",
+        color: "green-text-gradient",
+      },
+      {
+        name: "Chroma",
+        color: "pink-text-gradient",
+      },
+    ],
+    image: GitMind,
     source_code_link: "https://github.com/tharun067",
   },
 ];

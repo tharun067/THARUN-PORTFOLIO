@@ -42,6 +42,7 @@ import career from "./career.png";
 import spend from "./spend.png";
 import heart from "./heart.png";
 import agri from "./agri.png"
+import GitMind from "./GitMind.png"
 
 export {
   logo,
@@ -72,6 +73,7 @@ export {
   spend,
   agri,
   heart,
+  GitMind,
   BeautifulSoup,
   chomra,
   deep_learning,
