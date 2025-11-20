@@ -41,8 +41,9 @@ import tesla from "./company/tesla.png";
 import career from "./career.png";
 import spend from "./spend.png";
 import heart from "./heart.png";
-import agri from "./agri.png"
-import GitMind from "./GitMind.png"
+import agri from "./agri.png";
+import GitMind from "./GitMind.png";
+import SearchAgent from "./search_agent.png";
 
 export {
   logo,
@@ -74,6 +75,7 @@ export {
   agri,
   heart,
   GitMind,
+  SearchAgent,
   BeautifulSoup,
   chomra,
   deep_learning,

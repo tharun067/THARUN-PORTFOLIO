@@ -19,6 +19,7 @@ import {
   genai,
   langchain,
   langgraph,
+  SearchAgent,
   matplotlib,
   numpy,
   nlp,
@@ -319,6 +320,31 @@ const projects = [
       },
     ],
     image: GitMind,
+    source_code_link: "https://github.com/tharun067",
+  },
+  {
+    name: "Deep Research AI Assistant",
+    description:
+      "An AI Agent that do deep research on any topic and provide detailed information with references..",
+    tags: [
+      {
+        name: "Streamlit",
+        color: "blue-text-gradient",
+      },
+      {
+        name: "Groq",
+        color: "green-text-gradient",
+      },
+      {
+        name: "Google",
+        color: "pink-text-gradient",
+      },
+      {
+        name: "LangGraph",
+        color: "yellow-text-gradient",
+      }
+    ],
+    image: SearchAgent,
     source_code_link: "https://github.com/tharun067",
   },
 ];
